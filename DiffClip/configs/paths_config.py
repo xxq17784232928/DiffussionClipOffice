@@ -1,6 +1,6 @@
 DATASET_PATHS = {
 	'FFHQ': '/data/DiffusionCLIP/celeba_hq/',
-	'CelebA_HQ': '/hexp/xxq/data/image/celeba_hq_raw/raw_images',
+	'CelebA_HQ': '/hexp/xxq/project/DiffussionClipOffice/DiffClip/output/celeba_hq',
 	'AFHQ': '/data/DiffusionCLIP/afhq',
 	'LSUN':  '/data/DiffusionCLIP/lsun',
     'IMAGENET': '/data/DiffusionCLIP/imagenet/',
