@@ -1,0 +1,5 @@
+DiffClip/pretrained
+DiffClip/checkpoint
+DiffClip/runs
+DiffClip/utils/__pycache__
+DiffClip/imgs
