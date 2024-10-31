@@ -62,37 +62,40 @@ class DiffusionCLIP(object):
         print(f'-> {self.trg_txts}')
 
         # ----------- Model -----------#
-        if self.config.data.dataset == "LSUN":
-            if self.config.data.category == "bedroom":
-                url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/bedroom.ckpt"
-            elif self.config.data.category == "church_outdoor":
-                url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/church_outdoor.ckpt"
-        elif self.config.data.dataset == "CelebA_HQ":
-            url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/celeba_hq.ckpt"
-        elif self.config.data.dataset == "AFHQ":
-            pass
-        else:
-            raise ValueError
+        # if self.config.data.dataset == "LSUN":
+        #     if self.config.data.category == "bedroom":
+        #         url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/bedroom.ckpt"
+        #     elif self.config.data.category == "church_outdoor":
+        #         url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/church_outdoor.ckpt"
+        # elif self.config.data.dataset == "CelebA_HQ":
+        #     url = "https://image-editing-test-12345.s3-us-west-2.amazonaws.com/checkpoints/celeba_hq.ckpt"
+        # elif self.config.data.dataset == "AFHQ":
+        #     pass
+        # else:
+        #     raise ValueError
 
-        if self.config.data.dataset in ["CelebA_HQ", "LSUN"]:
-            model = DDPM(self.config)
-            if self.args.model_path:
-                init_ckpt = torch.load(self.args.model_path)
-            else:
-                init_ckpt = torch.hub.load_state_dict_from_url(url, map_location=self.device)
-            learn_sigma = False
-            print("Original diffusion Model loaded.")
-        elif self.config.data.dataset in ["FFHQ", "AFHQ"]:
-            model = i_DDPM(self.config.data.dataset)
-            if self.args.model_path:
-                init_ckpt = torch.load(self.args.model_path)
-            else:
-                init_ckpt = torch.load(MODEL_PATHS[self.config.data.dataset])
-            learn_sigma = True
-            print("Improved diffusion Model loaded.")
-        else:
-            print('Not implemented dataset')
-            raise ValueError
+        # if self.config.data.dataset in ["CelebA_HQ", "LSUN"]:
+        #     model = DDPM(self.config)
+        #     if self.args.model_path:
+        #         init_ckpt = torch.load(self.args.model_path)
+        #     else:
+        #         init_ckpt = torch.hub.load_state_dict_from_url(url, map_location=self.device)
+        #     learn_sigma = False
+        #     print("Original diffusion Model loaded.")
+        # elif self.config.data.dataset in ["FFHQ", "AFHQ"]:
+        #     model = i_DDPM(self.config.data.dataset)
+        #     if self.args.model_path:
+        #         init_ckpt = torch.load(self.args.model_path)
+        #     else:
+        #         init_ckpt = torch.load(MODEL_PATHS[self.config.data.dataset])
+        #     learn_sigma = True
+        #     print("Improved diffusion Model loaded.")
+        # else:
+        #     print('Not implemented dataset')
+        #     raise ValueError
+        model = DDPM(self.config)
+        init_ckpt = torch.load(self.args.model_path)
+        learn_sigma = False
         model.load_state_dict(init_ckpt)
         model.to(self.device)
         model = torch.nn.DataParallel(model)

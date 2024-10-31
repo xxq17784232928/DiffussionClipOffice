@@ -3,3 +3,5 @@ DiffClip/checkpoint
 DiffClip/runs
 DiffClip/utils/__pycache__
 DiffClip/imgs
+DiffClip/__pycache__
+DiffClip/configs/__pycache__
